@@ -1,0 +1,189 @@
+/* Premium Confidence Badge Design */
+
+.confidence-badge {
+  display: inline-block;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.confidence-badge:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.confidence-badge:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+.badge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.badge-label {
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.badge-score {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.confidence-meter {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.meter-fill {
+  height: 100%;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Size Variants */
+.confidence-badge-sm {
+  padding: 10px 12px;
+  min-width: 120px;
+}
+
+.confidence-badge-sm .badge-header {
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.confidence-badge-sm .badge-label {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.6px;
+}
+
+.confidence-badge-sm .badge-score {
+  font-size: 1.4rem;
+}
+
+.confidence-badge-sm .confidence-meter {
+  height: 6px;
+}
+
+.confidence-badge-md {
+  padding: 14px 18px;
+  min-width: 160px;
+}
+
+.confidence-badge-md .badge-label {
+  padding: 7px 16px;
+  font-size: 0.85rem;
+}
+
+.confidence-badge-md .badge-score {
+  font-size: 2rem;
+}
+
+.confidence-badge-md .confidence-meter {
+  height: 10px;
+}
+
+.confidence-badge-lg {
+  padding: 18px 24px;
+  min-width: 200px;
+}
+
+.confidence-badge-lg .badge-label {
+  padding: 8px 20px;
+  font-size: 1rem;
+}
+
+.confidence-badge-lg .badge-score {
+  font-size: 2.5rem;
+}
+
+.confidence-badge-lg .confidence-meter {
+  height: 12px;
+}
+
+/* Badge Level Colors */
+.badge-level-excellent {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.badge-level-high {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.badge-level-moderate {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.badge-level-low {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .confidence-badge,
+  .meter-fill,
+  .meter-fill::after {
+    transition: none;
+    animation: none;
+  }
+  
+  .confidence-badge:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .confidence-badge {
+    border: 2px solid currentColor;
+  }
+  
+  .badge-label {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}

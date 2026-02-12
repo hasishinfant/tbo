@@ -1,0 +1,141 @@
+/* DateRangePicker Component Styles */
+
+.date-range-picker {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--gray-700);
+}
+
+.date-inputs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: end;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: 0.5rem;
+}
+
+.date-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  background: white;
+  transition: border-color var(--transition-fast);
+  min-height: 44px;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.date-input:disabled {
+  background-color: var(--gray-100);
+  color: var(--gray-500);
+  cursor: not-allowed;
+}
+
+.date-input.error {
+  border-color: var(--error-color);
+}
+
+.date-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}
+
+.separator-icon {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  transform: rotate(90deg);
+}
+
+.trip-duration {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(8, 145, 178, 0.05));
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.duration-icon {
+  font-size: 1.125rem;
+}
+
+.duration-text {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.error-message {
+  margin-top: 0.5rem;
+  color: var(--error-color);
+  font-size: 0.875rem;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .date-inputs {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .date-separator {
+    order: -1;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+
+  .separator-icon {
+    transform: rotate(0deg);
+  }
+
+  .date-input-group:first-child {
+    order: 1;
+  }
+
+  .date-input-group:last-child {
+    order: 2;
+  }
+}
+
+/* Calendar icon styling for webkit browsers */
+.date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.date-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Focus styles for better accessibility */
+.date-input:focus::-webkit-calendar-picker-indicator {
+  opacity: 1;
+}

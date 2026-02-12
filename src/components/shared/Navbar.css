@@ -1,0 +1,191 @@
+.mmt-navbar {
+  background-color: #ffffff;
+  height: 72px; /* Increased height */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  display: flex;
+  align-items: center;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-md);
+}
+
+.mmt-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 26px; /* Slightly larger */
+  font-weight: 900; /* Bolder */
+  color: #000;
+  letter-spacing: -0.5px;
+}
+
+.logo-accent {
+  color: var(--color-secondary);
+  font-style: italic;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 2.5rem; /* Increased gap */
+  align-items: center;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Better icon-text gap */
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+/* Specific styling for 'My Trips' to make it pop less than login but more than offers */
+.nav-item:hover {
+  background-color: #f5f7fa;
+}
+
+.nav-icon-wrapper {
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.offer-icon {
+  background: var(--color-secondary);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.nav-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-title {
+  font-size: 11px;
+  font-weight: 800; /* Bolder title */
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.nav-subtitle {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Refined Login Button */
+.login-btn {
+  background: linear-gradient(90deg, #0a89c0, #0caee9);
+  padding: 6px 16px 6px 6px; /* Pad right more for text, left less for icon */
+  border-radius: 6px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(10, 137, 192, 0.2);
+  gap: 8px;
+}
+
+.login-btn:hover {
+  background: linear-gradient(90deg, #097ab0, #0b9ed6);
+  box-shadow: 0 4px 8px rgba(10, 137, 192, 0.3);
+}
+
+.login-btn .nav-title, 
+.login-btn .nav-subtitle {
+  color: white;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.login-btn .nav-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.login-icon-bg {
+  background: white;
+  width: 28px; /* Larger icon bg */
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mmt-icon {
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* User Dropdown */
+.user-dropdown {
+  position: absolute;
+  top: 120%; /* Push down slightly */
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 220px;
+  z-index: 1000;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: #f5f9ff;
+}
+
+.dropdown-item svg {
+  color: #555;
+  transition: color 0.2s;
+}
+
+.dropdown-item:hover svg {
+  color: var(--color-primary);
+}
+
+.dropdown-item span {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
+}

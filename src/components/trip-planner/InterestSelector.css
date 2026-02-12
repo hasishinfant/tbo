@@ -1,0 +1,183 @@
+/* InterestSelector Component Styles */
+
+.interest-selector {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--gray-700);
+}
+
+.interest-hint {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--gray-500);
+  margin-left: 0.5rem;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.interest-option {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  background: white;
+  transition: all var(--transition-fast);
+  overflow: hidden;
+}
+
+.interest-option:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.interest-option.selected {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(8, 145, 178, 0.1));
+  box-shadow: var(--shadow-md);
+}
+
+.interest-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.interest-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  justify-content: center;
+  text-align: center;
+}
+
+.interest-icon {
+  font-size: 2rem;
+  display: block;
+}
+
+.interest-label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  line-height: 1.3;
+}
+
+.interest-option.selected .interest-label {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.selected-count {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(8, 145, 178, 0.05));
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  text-align: center;
+}
+
+.error-message {
+  margin-top: 0.5rem;
+  color: var(--error-color);
+  font-size: 0.875rem;
+}
+
+/* Selection indicator */
+.interest-option.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .interest-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .interest-content {
+    padding: 0.75rem 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .interest-icon {
+    font-size: 1.5rem;
+  }
+
+  .interest-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .interest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .interest-content {
+    flex-direction: row;
+    text-align: left;
+    gap: 0.75rem;
+  }
+
+  .interest-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .interest-label {
+    font-size: 0.875rem;
+  }
+}
+
+/* Focus styles for accessibility */
+.interest-option:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Animation for selection */
+.interest-option.selected {
+  animation: selectPulse 0.3s ease-out;
+}
+
+@keyframes selectPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

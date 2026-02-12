@@ -1,0 +1,146 @@
+/* BudgetSelector Component Styles */
+
+.budget-selector {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--gray-700);
+}
+
+.budget-options {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+.budget-option {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  background: white;
+  transition: all var(--transition-fast);
+  overflow: hidden;
+}
+
+.budget-option:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.budget-option.selected {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(8, 145, 178, 0.05));
+  box-shadow: var(--shadow-md);
+}
+
+.budget-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.budget-content {
+  padding: 1rem;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.budget-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.budget-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.budget-label {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--gray-800);
+}
+
+.budget-option.selected .budget-label {
+  color: var(--primary-color);
+}
+
+.budget-description {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.4;
+  margin-left: 2.25rem; /* Align with label */
+}
+
+.budget-option.selected .budget-description {
+  color: var(--gray-700);
+}
+
+.error-message {
+  margin-top: 0.5rem;
+  color: var(--error-color);
+  font-size: 0.875rem;
+}
+
+/* Tablet and Desktop Layout */
+@media (min-width: 768px) {
+  .budget-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .budget-content {
+    text-align: center;
+    align-items: center;
+  }
+
+  .budget-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .budget-description {
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
+/* Focus styles for accessibility */
+.budget-option:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Animation for selection */
+.budget-option.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .budget-option.selected::before {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}

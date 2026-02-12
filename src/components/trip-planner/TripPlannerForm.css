@@ -1,0 +1,286 @@
+/* TripPlannerForm Component Styles */
+
+.trip-planner-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.form-header h1 {
+  color: var(--gray-800);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-header p {
+  color: var(--gray-600);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-container {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  min-height: 48px;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn.primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn.primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn.secondary {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+  border: 2px solid var(--gray-300);
+}
+
+.btn.secondary:hover:not(:disabled) {
+  background-color: var(--gray-300);
+  border-color: var(--gray-400);
+}
+
+.loading-spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .trip-planner-form {
+    padding: 1rem 0.75rem;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-header h1 {
+    font-size: 2rem;
+  }
+
+  .form-header p {
+    font-size: 1rem;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .trip-planner-form {
+    padding: 0.5rem;
+  }
+
+  .form-container {
+    padding: 1rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .form-header h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Focus styles for better accessibility */
+.btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Form validation styles */
+.form-container .error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.form-container .error-message::before {
+  content: '⚠️';
+  font-size: 0.75rem;
+}
+
+/* Success state for completed sections */
+.form-section-complete {
+  position: relative;
+}
+
+.form-section-complete::after {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  background: var(--success-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Loading state overlay */
+.form-container.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.form-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--border-radius);
+  z-index: 10;
+}
+/* Loading overlay for itinerary generation */
+.itinerary-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.loading-subtitle {
+  color: var(--gray-600);
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* Submit error message */
+.submit-error {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.submit-error .error-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Enhanced loading spinner for button */
+.loading-spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments for loading overlay */
+@media (max-width: 768px) {
+  .itinerary-loading-overlay {
+    padding: 1rem;
+  }
+  
+  .loading-subtitle {
+    font-size: 1rem;
+    max-width: 300px;
+  }
+}
