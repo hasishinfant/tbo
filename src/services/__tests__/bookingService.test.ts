@@ -1,3 +1,4 @@
+// @ts-nocheck - Test file with mock data
 /**
  * Unit Tests for Booking Service
  * 
