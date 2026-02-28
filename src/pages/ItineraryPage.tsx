@@ -71,24 +71,18 @@ const ItineraryPage: React.FC = () => {
           }
         }
         
-        // No valid itinerary found
-        console.log('No valid itinerary found, redirecting to trip planner');
+        // No valid itinerary found - don't redirect, just show empty state
+        console.log('No valid itinerary found');
         setLoading(false);
-        setTimeout(() => {
-          navigate('/plan-trip');
-        }, 100);
         
       } catch (error) {
         console.error('Error loading itinerary:', error);
         setLoading(false);
-        setTimeout(() => {
-          navigate('/plan-trip');
-        }, 100);
       }
     };
 
     loadItinerary();
-  }, [tripId, navigate]);
+  }, [tripId]);
 
   const handleChatWithAssistant = () => {
     navigate(`/chat${tripId ? `/${tripId}` : ''}`);
