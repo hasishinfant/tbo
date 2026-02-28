@@ -38,7 +38,12 @@ const ItineraryPage: React.FC = () => {
           console.log('Parsed itinerary data:', itineraryData);
           
           if (itineraryData.itinerary && Array.isArray(itineraryData.itinerary)) {
-            setItinerary(itineraryData.itinerary);
+            // Convert date strings back to Date objects
+            const itineraryWithDates = itineraryData.itinerary.map((day: any) => ({
+              ...day,
+              date: typeof day.date === 'string' ? new Date(day.date) : day.date,
+            }));
+            setItinerary(itineraryWithDates);
             // Also save to localStorage for persistence
             localStorage.setItem('currentTrip', generatedItinerary);
             setLoading(false);
@@ -55,7 +60,12 @@ const ItineraryPage: React.FC = () => {
           console.log('Parsed saved trip:', trip);
           
           if (trip.itinerary && Array.isArray(trip.itinerary)) {
-            setItinerary(trip.itinerary);
+            // Convert date strings back to Date objects
+            const itineraryWithDates = trip.itinerary.map((day: any) => ({
+              ...day,
+              date: typeof day.date === 'string' ? new Date(day.date) : day.date,
+            }));
+            setItinerary(itineraryWithDates);
             setLoading(false);
             return;
           }
