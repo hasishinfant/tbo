@@ -1,0 +1,2 @@
+import{j as e}from"./query-Btr53e-p.js";import{T as r}from"./trip-planner-features-Cy4avEMv.js";import"./router-CHgP5jf5.js";import"./destination-features-rioVTb2Z.js";import"./axios-B1ATcuf8.js";const s=()=>e.jsxs("div",{className:"trip-planner-page",children:[e.jsxs("div",{className:"page-header",children:[e.jsx("h1",{children:"Plan Your Perfect Trip"}),e.jsx("p",{children:"Tell us about your travel preferences and we'll create a personalized itinerary just for you"})]}),e.jsx(r,{})]});export{s as default};
+//# sourceMappingURL=TripPlannerPage-DJQkaBnt.js.map
