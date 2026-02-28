@@ -51,7 +51,7 @@ export interface FlightSearchRequest {
   InfantCount: number;
   DirectFlight: boolean;
   OneStopFlight: boolean;
-  JourneyType: 1 | 2; // 1 = OneWay, 2 = RoundTrip
+  JourneyType: 1 | 2 | string; // 1 = OneWay, 2 = RoundTrip, accept string for compatibility
   PreferredAirlines: string | null;
   Segments: FlightSegmentRequest[];
   Sources: string | null;
@@ -60,7 +60,7 @@ export interface FlightSearchRequest {
 export interface FlightSegmentRequest {
   Origin: string;
   Destination: string;
-  FlightCabinClass: number; // 1=All, 2=Economy, 3=PremiumEconomy, 4=Business, 5=PremiumBusiness, 6=First
+  FlightCabinClass: number | string; // Accept both number and string
   PreferredDepartureTime: string;
   PreferredArrivalTime: string;
 }
@@ -70,6 +70,10 @@ export interface FlightSearchResponse {
     ResponseStatus: number;
     TraceId: string;
     Results: FlightResult[][];
+    Error?: {
+      ErrorCode: string;
+      ErrorMessage: string;
+    };
   };
 }
 
@@ -96,6 +100,11 @@ export interface FlightSegment {
     FlightNumber: string;
     FareClass: string;
   };
+  AirlineCode?: string; // Duplicate for compatibility
+  AirlineName?: string; // For direct access
+  FlightNumber?: string; // For direct access
+  Craft?: string; // Aircraft type
+  AccumulatedDuration?: number; // Total duration including layovers
   Origin: Airport;
   Destination: Airport;
   Duration: number;
@@ -187,6 +196,10 @@ export interface RepricingResponse {
     Results: FlightResult;
     IsPriceChanged: boolean;
     IsTimeChanged: boolean;
+    Error?: {
+      ErrorCode: string;
+      ErrorMessage: string;
+    };
   };
 }
 
@@ -206,6 +219,10 @@ export interface FareRulesResponse {
     ResponseStatus: number;
     TraceId: string;
     FareRules: FareRuleDetail[];
+    Error?: {
+      ErrorCode: string;
+      ErrorMessage: string;
+    };
   };
 }
 
@@ -235,6 +252,11 @@ export interface SeatMapResponse {
     ResponseStatus: number;
     TraceId: string;
     SegmentSeat: SegmentSeat[];
+    SeatLayout?: any; // Optional seat layout information
+    Error?: {
+      ErrorCode: string;
+      ErrorMessage: string;
+    };
   };
 }
 
@@ -306,6 +328,10 @@ export interface AncillaryResponse {
     TraceId: string;
     Baggage: BaggageInfo[];
     MealDynamic: MealInfo[];
+    Error?: {
+      ErrorCode: string;
+      ErrorMessage: string;
+    };
   };
 }
 
@@ -496,12 +522,16 @@ export interface ApiErrorResponse {
       ErrorMessage: string;
     };
   };
+  error?: string; // Additional error field for compatibility
+  recoverable?: boolean; // Flag for recoverable errors
 }
 
 export interface TekTravelsApiError extends Error {
   code?: string;
   response?: ApiErrorResponse;
   status?: number;
+  ErrorCode?: string;
+  ErrorMessage?: string;
 }
 
 // ============================================================================

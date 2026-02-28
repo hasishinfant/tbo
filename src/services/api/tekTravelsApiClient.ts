@@ -168,11 +168,14 @@ export class TekTravelsApiClient {
    */
   private createApiError(code: string, message: string, details?: Record<string, any>): ApiErrorResponse {
     return {
-      error: {
-        code,
-        message,
-        details,
+      Response: {
+        ResponseStatus: 2,
+        Error: {
+          ErrorCode: code,
+          ErrorMessage: message,
+        },
       },
+      error: code,
       recoverable: this.isRecoverableError(code),
     };
   }

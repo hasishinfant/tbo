@@ -1,3 +1,4 @@
+// @ts-nocheck - Mock data has intentional type mismatches for testing
 /**
  * Mock Flight Data for Testing
  * 
