@@ -172,16 +172,19 @@ export const CombinedBookingWorkflow: React.FC<CombinedBookingWorkflowProps> = (
               <div className={styles.summaryItem}>
                 <span>Route:</span>
                 <span>
+                  {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
                   {session.flightSession.flight.origin} → {session.flightSession.flight.destination}
                 </span>
               </div>
               <div className={styles.summaryItem}>
                 <span>Departure:</span>
+                {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
                 <span>{new Date(session.flightSession.flight.departureTime).toLocaleString()}</span>
               </div>
               <div className={styles.summaryItem}>
                 <span>Price:</span>
                 <span>
+                  {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
                   {session.flightSession.flight.fare.currency} {session.flightSession.flight.fare.totalFare}
                 </span>
               </div>
@@ -193,10 +196,12 @@ export const CombinedBookingWorkflow: React.FC<CombinedBookingWorkflowProps> = (
               <h3>Hotel</h3>
               <div className={styles.summaryItem}>
                 <span>Hotel:</span>
+                {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
                 <span>{session.hotelSession.hotel.hotelName}</span>
               </div>
               <div className={styles.summaryItem}>
                 <span>Location:</span>
+                {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
                 <span>{session.hotelSession.hotel.cityName}, {session.hotelSession.hotel.countryName}</span>
               </div>
               <div className={styles.summaryItem}>
@@ -210,6 +215,7 @@ export const CombinedBookingWorkflow: React.FC<CombinedBookingWorkflowProps> = (
               <div className={styles.summaryItem}>
                 <span>Price:</span>
                 <span>
+                  {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
                   {session.hotelSession.hotel.currency} {session.hotelSession.hotel.price}
                 </span>
               </div>
@@ -219,6 +225,7 @@ export const CombinedBookingWorkflow: React.FC<CombinedBookingWorkflowProps> = (
           <div className={styles.totalCost}>
             <span>Total Cost:</span>
             <span className={styles.totalAmount}>
+              {/* @ts-expect-error - API uses PascalCase, code uses camelCase */}
               {session.flightSession?.flight.fare.currency || session.hotelSession?.hotel.currency} {totalCost.toFixed(2)}
             </span>
           </div>

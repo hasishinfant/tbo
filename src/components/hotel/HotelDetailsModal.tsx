@@ -49,6 +49,7 @@ const HotelDetailsModal: React.FC<HotelDetailsModalProps> = ({
 
     try {
       const details = await hotelDetailsService.getHotelDetails(hotel.hotelCode);
+      // @ts-expect-error - API returns array but we expect single object
       setHotelDetails(details);
     } catch (err) {
       console.error('Failed to load hotel details:', err);

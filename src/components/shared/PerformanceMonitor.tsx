@@ -6,7 +6,6 @@
  */
 
 import React, { useEffect, useState } from 'react';
-// @ts-expect-error - onFID is deprecated in web-vitals v4, using onINP instead
 import { onCLS, onFCP, onLCP, onTTFB, type Metric } from 'web-vitals';
 
 interface PerformanceMetrics {
@@ -25,9 +24,8 @@ export const PerformanceMonitor: React.FC = () => {
     // Only show in development mode
     if (import.meta.env.PROD) return;
 
-    // Collect Web Vitals
+    // Collect Web Vitals (onFID removed - deprecated in web-vitals v4)
     onCLS((metric: Metric) => setMetrics(prev => ({ ...prev, cls: metric.value })));
-    onFID((metric: Metric) => setMetrics(prev => ({ ...prev, fid: metric.value })));
     onFCP((metric: Metric) => setMetrics(prev => ({ ...prev, fcp: metric.value })));
     onLCP((metric: Metric) => setMetrics(prev => ({ ...prev, lcp: metric.value })));
     onTTFB((metric: Metric) => setMetrics(prev => ({ ...prev, ttfb: metric.value })));

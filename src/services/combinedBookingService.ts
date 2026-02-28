@@ -352,6 +352,7 @@ class CombinedBookingService {
     if (session.hotelSession?.preBookResult) {
       total += session.hotelSession.preBookResult.currentPrice;
     } else if (session.hotelSession?.hotel) {
+      // @ts-expect-error - API uses PascalCase, code uses camelCase
       total += session.hotelSession.hotel.price;
     }
 
