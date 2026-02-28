@@ -6,7 +6,8 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { onCLS, onFID, onFCP, onLCP, onTTFB, type Metric } from 'web-vitals';
+// @ts-expect-error - onFID is deprecated in web-vitals v4, using onINP instead
+import { onCLS, onFCP, onLCP, onTTFB, type Metric } from 'web-vitals';
 
 interface PerformanceMetrics {
   cls?: number;

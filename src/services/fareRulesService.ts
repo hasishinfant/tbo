@@ -406,7 +406,7 @@ class FareRulesService {
   /**
    * Determine if mock fallback should be used
    */
-  private async shouldUseMockFallback(): boolean {
+  private async shouldUseMockFallback(): Promise<boolean> {
     // Check if API is available
     const isAvailable = await this._mockFallbackHandler.isApiAvailable();
     
