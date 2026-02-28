@@ -1,12 +1,12 @@
 /**
- * Tek Travels Universal Air API Type Definitions
+ * Tek Travels Flight API Type Definitions
  * 
- * This file contains TypeScript interfaces for all Tek Travels API
- * request and response structures.
+ * Complete TypeScript interfaces for the Tek Travels Universal Air API
+ * Based on API documentation and integration requirements
  */
 
 // ============================================================================
-// Authentication & Configuration
+// Configuration Types
 // ============================================================================
 
 export interface ApiConfig {
@@ -18,36 +18,58 @@ export interface ApiConfig {
 }
 
 // ============================================================================
-// Flight Search
+// Authentication Types
+// ============================================================================
+
+export interface AuthRequest {
+  ClientId: string;
+  UserName: string;
+  Password: string;
+  EndUserIp: string;
+}
+
+export interface AuthResponse {
+  Status: number;
+  TokenId: string;
+  Member: {
+    MemberId: number;
+    FirstName: string;
+    LastName: string;
+    Email: string;
+  };
+}
+
+// ============================================================================
+// Flight Search Types
 // ============================================================================
 
 export interface FlightSearchRequest {
   EndUserIp: string;
-  TokenId: string;
+  TokenId?: string;
   AdultCount: number;
   ChildCount: number;
   InfantCount: number;
   DirectFlight: boolean;
   OneStopFlight: boolean;
-  JourneyType: '1' | '2'; // 1=OneWay, 2=Return
+  JourneyType: 1 | 2; // 1 = OneWay, 2 = RoundTrip
   PreferredAirlines: string | null;
-  Segments: SearchSegment[];
+  Segments: FlightSegmentRequest[];
   Sources: string | null;
 }
 
-export interface SearchSegment {
+export interface FlightSegmentRequest {
   Origin: string;
   Destination: string;
-  FlightCabinClass: '1' | '2' | '3' | '4'; // 1=All, 2=Economy, 3=Premium Economy, 4=Business
+  FlightCabinClass: number; // 1=All, 2=Economy, 3=PremiumEconomy, 4=Business, 5=PremiumBusiness, 6=First
   PreferredDepartureTime: string;
   PreferredArrivalTime: string;
 }
 
 export interface FlightSearchResponse {
   Response: {
+    ResponseStatus: number;
     TraceId: string;
     Results: FlightResult[][];
-    Error?: TekTravelsApiError;
   };
 }
 
@@ -63,50 +85,30 @@ export interface FlightResult {
     Type: string;
   };
   Segments: FlightSegment[][];
-  LastTicketDate: string;
-  TicketAdvisory: string;
-  FareRules: FareRule[];
-  Fare: {
-    Currency: string;
-    BaseFare: number;
-    Tax: number;
-    YQTax: number;
-    AdditionalTxnFeeOfrd: number;
-    AdditionalTxnFeePub: number;
-    PGCharge: number;
-    OtherCharges: number;
-    ChargeBU: ChargeBU[];
-    Discount: number;
-    PublishedFare: number;
-    OfferedFare: number;
-    TdsOnCommission: number;
-    TdsOnPLB: number;
-    TdsOnIncentive: number;
-    ServiceFee: number;
-  };
+  Fare: Fare;
+  FareBreakdown: FareBreakdown[];
 }
 
 export interface FlightSegment {
+  Airline: {
+    AirlineCode: string;
+    AirlineName: string;
+    FlightNumber: string;
+    FareClass: string;
+  };
   Origin: Airport;
   Destination: Airport;
-  AirlineCode: string;
-  AirlineName: string;
-  FlightNumber: string;
-  FareClass: string;
-  OperatingCarrier: string;
   Duration: number;
   GroundTime: number;
   Mile: number;
   StopOver: boolean;
-  FlightInfoIndex: string;
+  FlightStatus: string;
+  SegmentIndicator: number;
   Baggage: string;
   CabinBaggage: string;
-  AccumulatedDuration: number;
-  Craft: string;
-  Remark: string | null;
-  IsETicketEligible: boolean;
-  FlightStatus: string;
-  Status: string;
+  CabinClass: number;
+  SupplierFareKey: string | null;
+  TripIndicator: number;
 }
 
 export interface Airport {
@@ -121,175 +123,89 @@ export interface Airport {
   CountryName: string;
 }
 
-export interface FareRule {
-  Origin: string;
-  Destination: string;
-  Airline: string;
-  FareBasisCode: string;
-  FareRuleDetail: string;
-  FareRestriction: string;
+export interface Fare {
+  Currency: string;
+  BaseFare: number;
+  Tax: number;
+  TaxBreakup: TaxBreakup[];
+  YQTax: number;
+  AdditionalTxnFeeOfrd: number;
+  AdditionalTxnFeePub: number;
+  PGCharge: number;
+  OtherCharges: number;
+  ChargeBU: ChargeBU[];
+  Discount: number;
+  PublishedFare: number;
+  CommissionEarned: number;
+  PLBEarned: number;
+  IncentiveEarned: number;
+  OfferedFare: number;
+  TdsOnCommission: number;
+  TdsOnPLB: number;
+  TdsOnIncentive: number;
+  ServiceFee: number;
+}
+
+export interface TaxBreakup {
+  key: string;
+  value: number;
 }
 
 export interface ChargeBU {
-  Key: string;
-  Value: number;
+  key: string;
+  value: number;
+}
+
+export interface FareBreakdown {
+  Currency: string;
+  PassengerType: number; // 1=Adult, 2=Child, 3=Infant
+  PassengerCount: number;
+  BaseFare: number;
+  Tax: number;
+  TaxBreakUp: TaxBreakup[];
+  YQTax: number;
+  AdditionalTxnFeeOfrd: number;
+  AdditionalTxnFeePub: number;
+  PGCharge: number;
 }
 
 // ============================================================================
-// Re-Pricing
+// Repricing Types
 // ============================================================================
 
 export interface RepricingRequest {
   EndUserIp: string;
-  TokenId: string;
+  TokenId?: string;
   TraceId: string;
   ResultIndex: string;
 }
 
 export interface RepricingResponse {
   Response: {
+    ResponseStatus: number;
     TraceId: string;
-    Results: {
-      IsLCC: boolean;
-      ResultIndex: string;
-      Source: number;
-      IsPriceChanged: boolean;
-      IsTimeChanged: boolean;
-      Fare: {
-        Currency: string;
-        BaseFare: number;
-        Tax: number;
-        PublishedFare: number;
-        OfferedFare: number;
-      };
-    };
-    Error?: TekTravelsApiError;
-  };
-}
-
-// ============================================================================
-// Seat Map
-// ============================================================================
-
-export interface SeatMapRequest {
-  EndUserIp: string;
-  TokenId: string;
-  TraceId: string;
-  ResultIndex: string;
-}
-
-export interface SeatMapResponse {
-  Response: {
-    TraceId: string;
-    SeatLayout: {
-      SegmentSeat: SegmentSeat[];
-    };
-    Error?: TekTravelsApiError;
-  };
-}
-
-export interface SegmentSeat {
-  SegmentIndex: number;
-  Seats: SeatInfo[];
-}
-
-export interface SeatInfo {
-  RowNo: number;
-  SeatNo: string;
-  SeatType: number; // 1=Window, 2=Middle, 3=Aisle
-  SeatWayType: number; // 1=Available, 2=Blocked, 3=Booked
-  Compartment: number; // 1=Economy, 2=Premium Economy, 3=Business, 4=First
-  Deck: number;
-  Currency: string;
-  Price: number;
-}
-
-// ============================================================================
-// Seat Sell
-// ============================================================================
-
-export interface SeatSellRequest {
-  EndUserIp: string;
-  TokenId: string;
-  TraceId: string;
-  ResultIndex: string;
-  SeatDynamic: SeatDynamic[];
-}
-
-export interface SeatDynamic {
-  SegmentIndex: number;
-  PassengerIndex: number;
-  SeatNo: string;
-}
-
-export interface SeatSellResponse {
-  Response: {
-    TraceId: string;
-    SeatDynamic: SeatDynamic[];
+    Results: FlightResult;
     IsPriceChanged: boolean;
-    Error?: TekTravelsApiError;
+    IsTimeChanged: boolean;
   };
 }
 
 // ============================================================================
-// Ancillary Services
-// ============================================================================
-
-export interface AncillaryRequest {
-  EndUserIp: string;
-  TokenId: string;
-  TraceId: string;
-  ResultIndex: string;
-}
-
-export interface AncillaryResponse {
-  Response: {
-    TraceId: string;
-    Baggage: BaggageInfo[];
-    MealDynamic: MealInfo[];
-    Error?: TekTravelsApiError;
-  };
-}
-
-export interface BaggageInfo {
-  WayType: number;
-  Code: string;
-  Description: string;
-  Weight: number;
-  Currency: string;
-  Price: number;
-  Origin: string;
-  Destination: string;
-}
-
-export interface MealInfo {
-  WayType: number;
-  Code: string;
-  Description: string;
-  AirlineDescription: string;
-  Quantity: number;
-  Currency: string;
-  Price: number;
-  Origin: string;
-  Destination: string;
-}
-
-// ============================================================================
-// Fare Rules
+// Fare Rules Types
 // ============================================================================
 
 export interface FareRulesRequest {
   EndUserIp: string;
-  TokenId: string;
+  TokenId?: string;
   TraceId: string;
   ResultIndex: string;
 }
 
 export interface FareRulesResponse {
   Response: {
+    ResponseStatus: number;
     TraceId: string;
     FareRules: FareRuleDetail[];
-    Error?: TekTravelsApiError;
   };
 }
 
@@ -303,12 +219,130 @@ export interface FareRuleDetail {
 }
 
 // ============================================================================
-// Booking
+// Seat Selection Types
+// ============================================================================
+
+export interface SeatMapRequest {
+  EndUserIp: string;
+  TokenId?: string;
+  TraceId: string;
+  ResultIndex: string;
+  SegmentIndex: number;
+}
+
+export interface SeatMapResponse {
+  Response: {
+    ResponseStatus: number;
+    TraceId: string;
+    SegmentSeat: SegmentSeat[];
+  };
+}
+
+export interface SegmentSeat {
+  SegmentIndex: number;
+  Seats: SeatInfo[][];
+}
+
+export interface SeatInfo {
+  RowNo: string;
+  SeatNo: string;
+  SeatType: number; // 1=Window, 2=Middle, 3=Aisle
+  SeatWayType: number; // 1=Forward, 2=Backward
+  Compartment: number; // 1=Economy, 2=Business, 3=First
+  Deck: number; // 1=Upper, 2=Lower
+  Currency: string;
+  Price: number;
+  Code: string;
+  Description: string;
+  AvailablityType: number; // 0=Available, 1=Blocked, 2=Booked
+  SeatDynamic: SeatDynamic;
+}
+
+export interface SeatDynamic {
+  SeatNo: string;
+  RowNo: string;
+  SeatType: number;
+  SeatWayType: number;
+  Compartment: number;
+  Deck: number;
+  Currency: string;
+  Price: number;
+  Code: string;
+  Description: string;
+  AvailablityType: number;
+}
+
+export interface SeatSellRequest {
+  EndUserIp: string;
+  TokenId?: string;
+  TraceId: string;
+  ResultIndex: string;
+  SeatDynamic: SeatDynamic[];
+}
+
+export interface SeatSellResponse {
+  Response: {
+    ResponseStatus: number;
+    TraceId: string;
+    ResultIndex: string;
+    IsSeatSelected: boolean;
+  };
+}
+
+// ============================================================================
+// Ancillary Services Types
+// ============================================================================
+
+export interface AncillaryRequest {
+  EndUserIp: string;
+  TokenId?: string;
+  TraceId: string;
+  ResultIndex: string;
+}
+
+export interface AncillaryResponse {
+  Response: {
+    ResponseStatus: number;
+    TraceId: string;
+    Baggage: BaggageInfo[];
+    MealDynamic: MealInfo[];
+  };
+}
+
+export interface BaggageInfo {
+  AirlineCode: string;
+  FlightNumber: string;
+  WayType: number; // 1=Departure, 2=Return
+  Code: string;
+  Description: string;
+  Weight: number;
+  Currency: string;
+  Price: number;
+  Origin: string;
+  Destination: string;
+}
+
+export interface MealInfo {
+  AirlineCode: string;
+  FlightNumber: string;
+  WayType: number;
+  Code: string;
+  Description: string;
+  AirlineDescription: string;
+  Quantity: number;
+  Currency: string;
+  Price: number;
+  Origin: string;
+  Destination: string;
+}
+
+// ============================================================================
+// Booking Types
 // ============================================================================
 
 export interface BookingRequest {
   EndUserIp: string;
-  TokenId: string;
+  TokenId?: string;
   TraceId: string;
   ResultIndex: string;
   Passengers: ApiPassenger[];
@@ -320,11 +354,12 @@ export interface ApiPassenger {
   FirstName: string;
   LastName: string;
   PaxType: number; // 1=Adult, 2=Child, 3=Infant
-  DateOfBirth: string;
+  DateOfBirth: string; // YYYY-MM-DD
   Gender: number; // 1=Male, 2=Female
   PassportNo: string;
-  PassportExpiry: string;
+  PassportExpiry: string; // YYYY-MM-DD
   AddressLine1: string;
+  AddressLine2?: string;
   City: string;
   CountryCode: string;
   CountryName: string;
@@ -346,36 +381,41 @@ export interface GSTDetails {
 
 export interface BookingResponse {
   Response: {
+    ResponseStatus: number;
     TraceId: string;
     BookingId: number;
     PNR: string;
-    SSRDenied: boolean;
-    SSRMessage: string | null;
     Status: number;
     IsPriceChanged: boolean;
     IsTimeChanged: boolean;
-    FlightItinerary: {
-      Passenger: PassengerInfo[];
-      Segments: FlightSegment[][];
-      FareRules: FareRule[];
-      Fare: {
-        Currency: string;
-        BaseFare: number;
-        Tax: number;
-        PublishedFare: number;
-        OfferedFare: number;
-      };
-    };
-    Error?: TekTravelsApiError;
+    FlightItinerary: FlightItinerary;
   };
 }
 
+export interface FlightItinerary {
+  BookingId: number;
+  PNR: string;
+  IsPriceChanged: boolean;
+  IsTimeChanged: boolean;
+  Origin: string;
+  Destination: string;
+  AirlineCode: string;
+  LastTicketDate: string;
+  ValidatingAirlineCode: string;
+  AirlineRemark: string;
+  IsLCC: boolean;
+  NonRefundable: boolean;
+  FareType: string;
+  Fare: Fare;
+  Passenger: PassengerInfo[];
+  Segments: FlightSegment[][];
+  InvoiceCreatedOn: string;
+  InvoiceAmount: number;
+  TripIndicator: number;
+}
+
 export interface PassengerInfo {
-  Ticket: {
-    TicketId: string;
-    TicketNumber: string;
-  };
-  PaxId: number;
+  PassengerId: number;
   Title: string;
   FirstName: string;
   LastName: string;
@@ -384,34 +424,91 @@ export interface PassengerInfo {
   Gender: number;
   PassportNo: string;
   PassportExpiry: string;
+  AddressLine1: string;
+  City: string;
+  CountryCode: string;
+  CountryName: string;
   Nationality: string;
-  Email: string;
   ContactNo: string;
+  Email: string;
+  IsLeadPax: boolean;
+  FFAirlineCode: string | null;
+  FFNumber: string | null;
+  Baggage: PassengerBaggage[];
+  MealDynamic: PassengerMeal[];
+  SeatDynamic: PassengerSeat[];
+  Ticket: TicketInfo;
+}
+
+export interface PassengerBaggage {
+  Code: string;
+  Description: string;
+  Weight: number;
+  Currency: string;
+  Price: number;
+  Origin: string;
+  Destination: string;
+}
+
+export interface PassengerMeal {
+  Code: string;
+  Description: string;
+  AirlineDescription: string;
+  Quantity: number;
+  Currency: string;
+  Price: number;
+  Origin: string;
+  Destination: string;
+}
+
+export interface PassengerSeat {
+  SegmentIndex: number;
+  Code: string;
+  RowNo: string;
+  SeatNo: string;
+  SeatType: number;
+  SeatWayType: number;
+  Compartment: number;
+  Deck: number;
+  Currency: string;
+  Price: number;
+}
+
+export interface TicketInfo {
+  TicketId: number;
+  TicketNumber: string;
+  IssueDate: string;
+  ValidatingAirlineCode: string;
+  Remarks: string;
+  ServiceFeeAmount: number;
+  Status: number;
 }
 
 // ============================================================================
-// Error Handling
+// Error Types
 // ============================================================================
-
-export interface TekTravelsApiError {
-  ErrorCode: string;
-  ErrorMessage: string;
-}
 
 export interface ApiErrorResponse {
-  error: {
-    code: string;
-    message: string;
-    details?: Record<string, any>;
+  Response: {
+    ResponseStatus: number;
+    Error: {
+      ErrorCode: string;
+      ErrorMessage: string;
+    };
   };
-  recoverable: boolean;
+}
+
+export interface TekTravelsApiError extends Error {
+  code?: string;
+  response?: ApiErrorResponse;
+  status?: number;
 }
 
 // ============================================================================
-// Common Types
+// Utility Types
 // ============================================================================
 
-export type CabinClass = 'All' | 'Economy' | 'Premium Economy' | 'Business' | 'First';
-export type JourneyType = 'OneWay' | 'Return';
-export type PassengerType = 'Adult' | 'Child' | 'Infant';
-export type Gender = 'Male' | 'Female';
+export type JourneyType = 1 | 2; // 1 = OneWay, 2 = RoundTrip
+export type PassengerType = 1 | 2 | 3; // 1 = Adult, 2 = Child, 3 = Infant
+export type CabinClass = 1 | 2 | 3 | 4 | 5 | 6; // 1=All, 2=Economy, 3=PremiumEconomy, 4=Business, 5=PremiumBusiness, 6=First
+export type Gender = 1 | 2; // 1 = Male, 2 = Female

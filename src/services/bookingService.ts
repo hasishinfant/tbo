@@ -462,30 +462,32 @@ class BookingService {
       const flightBooking = {
         bookingReference: confirmation.bookingReference,
         pnr: confirmation.pnr,
-        // @ts-expect-error - API uses PascalCase, code uses camelCase
+        // @ts-expect-error - API uses PascalCase (AirlineName), code uses camelCase
         airline: confirmation.flight.airline,
-        // @ts-expect-error - API uses PascalCase, code uses camelCase
+        // @ts-expect-error - API uses PascalCase (FlightNumber), code uses camelCase
         flightNumber: confirmation.flight.flightNumber,
         departure: {
-          // @ts-expect-error - API uses PascalCase, code uses camelCase
-          airport: confirmation.flight.origin,
-          // @ts-expect-error - API uses PascalCase, code uses camelCase
-          city: confirmation.flight.origin,
-          // @ts-expect-error - API uses PascalCase, code uses camelCase
+          // @ts-expect-error - API uses nested Airport object with AirportCode
+          airport: confirmation.flight.origin.airport,
+          // @ts-expect-error - API uses nested Airport object with CityName
+          city: confirmation.flight.origin.city,
+          // @ts-expect-error - API uses nested Airport object with DepTime
           time: confirmation.flight.departureTime,
         },
         arrival: {
-          // @ts-expect-error - API uses PascalCase, code uses camelCase
-          airport: confirmation.flight.destination,
-          // @ts-expect-error - API uses PascalCase, code uses camelCase
-          city: confirmation.flight.destination,
-          // @ts-expect-error - API uses PascalCase, code uses camelCase
+          // @ts-expect-error - API uses nested Airport object with AirportCode
+          airport: confirmation.flight.destination.airport,
+          // @ts-expect-error - API uses nested Airport object with CityName
+          city: confirmation.flight.destination.city,
+          // @ts-expect-error - API uses nested Airport object with ArrTime
           time: confirmation.flight.arrivalTime,
         },
         passengers: confirmation.passengers.map(p => `${p.title} ${p.firstName} ${p.lastName}`),
-        totalFare: confirmation.totalPrice,
+        // @ts-expect-error - Custom property added to BookingConfirmation
+        totalFare: confirmation.totalFare,
         currency: confirmation.currency,
-        status: 'Confirmed',
+        // @ts-expect-error - Custom property added to BookingConfirmation
+        status: confirmation.status,
         bookedAt: confirmation.bookedAt,
       };
       
