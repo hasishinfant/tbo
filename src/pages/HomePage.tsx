@@ -22,6 +22,9 @@ const HomePage: React.FC = () => {
             <button className="btn-hero btn-hero-primary" onClick={() => navigate('/plan-trip')}>
               ✈️ Plan Your Trip
             </button>
+            <button className="btn-hero btn-hero-secondary" onClick={() => navigate('/book-hotels')}>
+              🏨 Book Hotels
+            </button>
             <button className="btn-hero btn-hero-secondary" onClick={() => navigate('/itinerary')}>
               📅 View Itineraries
             </button>

@@ -1,0 +1,253 @@
+/**
+ * Hotel Booking Workflow Styles
+ */
+
+.hotel-booking-workflow {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Progress Indicator */
+.workflow-progress {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.step-indicator {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+  z-index: 2;
+  background: white;
+}
+
+.progress-step.pending .step-indicator {
+  background: #e5e7eb;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+}
+
+.progress-step.active .step-indicator {
+  background: #3b82f6;
+  color: white;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.progress-step.completed .step-indicator {
+  background: #10b981;
+  color: white;
+  border: 2px solid #10b981;
+}
+
+.step-check {
+  font-size: 1.5rem;
+}
+
+.step-number {
+  font-size: 1.125rem;
+}
+
+.step-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-align: center;
+  max-width: 120px;
+}
+
+.progress-step.pending .step-label {
+  color: #9ca3af;
+}
+
+.progress-step.active .step-label {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.step-connector {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #e5e7eb;
+  z-index: 1;
+}
+
+.progress-step.completed .step-connector {
+  background: #10b981;
+}
+
+/* Workflow Content */
+.workflow-content {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  min-height: 400px;
+}
+
+.step-placeholder {
+  padding: 2rem;
+  text-align: center;
+}
+
+.step-placeholder h3 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.step-placeholder p {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+/* Workflow Actions */
+.workflow-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.workflow-nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-cancel,
+.btn-back,
+.btn-next {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 120px;
+}
+
+.btn-cancel {
+  background: white;
+  color: #dc2626;
+  border: 2px solid #dc2626;
+}
+
+.btn-cancel:hover {
+  background: #fef2f2;
+}
+
+.btn-back {
+  background: white;
+  color: #6b7280;
+  border: 2px solid #d1d5db;
+}
+
+.btn-back:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.btn-next {
+  background: #3b82f6;
+  color: white;
+  border: 2px solid #3b82f6;
+}
+
+.btn-next:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.btn-next:disabled {
+  background: #d1d5db;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hotel-booking-workflow {
+    padding: 1rem;
+  }
+
+  .workflow-progress {
+    padding: 1rem;
+  }
+
+  .progress-steps {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .progress-step {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .step-indicator {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .step-label {
+    text-align: left;
+    max-width: none;
+  }
+
+  .step-connector {
+    display: none;
+  }
+
+  .workflow-content {
+    padding: 1.5rem;
+  }
+
+  .workflow-actions {
+    flex-direction: column;
+  }
+
+  .workflow-nav-buttons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-back,
+  .btn-next {
+    width: 100%;
+  }
+}

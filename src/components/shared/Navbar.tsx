@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, ChevronDown, CheckCircle2, LogOut } from "lucide-react";
+import { User, ChevronDown, CheckCircle2, LogOut, Hotel } from "lucide-react";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
@@ -39,6 +39,16 @@ const Navbar: React.FC = () => {
             <div className="nav-text">
               <span className="nav-title">Super Offers</span>
               <span className="nav-subtitle">Explore great deals</span>
+            </div>
+          </div>
+
+          <div className="nav-item" onClick={() => navigate('/book-hotels')}>
+            <span className="nav-icon-wrapper">
+              <Hotel size={20} className="text-secondary" />
+            </span>
+            <div className="nav-text">
+              <span className="nav-title">Book Hotels</span>
+              <span className="nav-subtitle">Find accommodations</span>
             </div>
           </div>
 

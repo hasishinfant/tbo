@@ -8,6 +8,7 @@ import { AppProvider } from './context/AppContext';
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 const TripPlannerPage = React.lazy(() => import('./pages/TripPlannerPage'));
+const HotelBookingPage = React.lazy(() => import('./pages/HotelBookingPage'));
 const ItineraryPage = React.lazy(() => import('./pages/ItineraryPage'));
 const ChatPage = React.lazy(() => import('./pages/ChatPage'));
 const EmergencyPage = React.lazy(() => import('./pages/EmergencyPage'));
@@ -20,6 +21,7 @@ import NetworkStatus from './components/shared/NetworkStatus';
 import LoadingSpinner from './components/shared/LoadingSpinner';
 import { GlobalLoadingManager } from './components/shared/GlobalLoadingManager';
 import { AIAssistantWidget } from './confidence-engine/components/AIAssistantWidget';
+// import PerformanceMonitor from './components/shared/PerformanceMonitor';
 
 // Styles
 import './styles/global.css';
@@ -60,6 +62,7 @@ const App: React.FC = () => {
             <Router basename={basename}>
               <div className="app">
                 <NetworkStatus />
+                {/* <PerformanceMonitor /> */}
                 {isAuthenticated && <Navbar />}
                 {isAuthenticated && <AIAssistantWidget />}
                 <main className="main-content">
@@ -76,6 +79,7 @@ const App: React.FC = () => {
                       <Route path="/login" element={<LoginPage />} />
                       <Route path="/" element={isAuthenticated ? <HomePage /> : <LoginPage />} />
                       <Route path="/plan-trip" element={isAuthenticated ? <TripPlannerPage /> : <LoginPage />} />
+                      <Route path="/book-hotels" element={isAuthenticated ? <HotelBookingPage /> : <LoginPage />} />
                       <Route path="/itinerary" element={isAuthenticated ? <ItineraryPage /> : <LoginPage />} />
                       <Route path="/itinerary/:tripId" element={isAuthenticated ? <ItineraryPage /> : <LoginPage />} />
                       <Route path="/chat" element={isAuthenticated ? <ChatPage /> : <LoginPage />} />

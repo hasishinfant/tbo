@@ -14,6 +14,16 @@ export default defineConfig(({ mode }) => ({
   server: {
     port: 3000,
     open: true,
+    // Enable HTTP/2 for better performance
+    https: false,
+    // Improve HMR performance
+    hmr: {
+      overlay: true,
+    },
+    // Faster file watching
+    watch: {
+      usePolling: false,
+    },
   },
   build: {
     // Performance optimizations
@@ -81,5 +91,12 @@ export default defineConfig(({ mode }) => ({
   esbuild: {
     // Remove unused imports
     treeShaking: true,
+    // Drop console and debugger in production
+    drop: mode === 'production' ? ['console', 'debugger'] : [],
+  },
+  // Performance hints
+  preview: {
+    port: 4173,
+    open: true,
   },
 }))

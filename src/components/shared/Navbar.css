@@ -189,3 +189,132 @@
   color: #333;
   font-weight: 500;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 1024px) {
+  .navbar-right {
+    gap: 1.5rem;
+  }
+
+  .nav-item {
+    padding: 6px 10px;
+  }
+
+  .nav-title {
+    font-size: 10px;
+  }
+
+  .nav-subtitle {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mmt-navbar {
+    height: 64px;
+  }
+
+  .navbar-container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .navbar-right {
+    gap: 1rem;
+  }
+
+  .nav-item {
+    padding: 4px 8px;
+    min-width: 44px; /* Touch-friendly minimum */
+    min-height: 44px;
+  }
+
+  .nav-icon-wrapper {
+    font-size: 18px;
+  }
+
+  .offer-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .nav-text {
+    display: none; /* Hide text on mobile, show only icons */
+  }
+
+  .login-btn .nav-text {
+    display: flex; /* Keep login text visible */
+  }
+
+  .login-btn {
+    padding: 4px 12px 4px 4px;
+  }
+
+  .login-icon-bg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mmt-logo {
+    font-size: 22px;
+  }
+
+  .user-dropdown {
+    min-width: 180px;
+  }
+
+  .dropdown-item {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 320px) {
+  .mmt-navbar {
+    height: 56px;
+  }
+
+  .navbar-right {
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    padding: 2px 6px;
+  }
+
+  .nav-icon-wrapper {
+    font-size: 16px;
+  }
+
+  .offer-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .login-btn {
+    padding: 3px 10px 3px 3px;
+  }
+
+  .login-icon-bg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .login-btn .nav-title {
+    font-size: 9px;
+  }
+
+  .login-btn .nav-subtitle {
+    font-size: 8px;
+  }
+
+  .mmt-logo {
+    font-size: 18px;
+  }
+
+  .user-dropdown {
+    min-width: 160px;
+  }
+}

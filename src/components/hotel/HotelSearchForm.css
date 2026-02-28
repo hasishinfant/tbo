@@ -1,0 +1,367 @@
+/**
+ * Hotel Search Form Styles
+ * 
+ * Travel-themed design with blue, teal, and soft orange accent colors
+ * Mobile-first responsive design
+ */
+
+.hotel-search-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.hotel-search-form .form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hotel-search-form .form-header h2 {
+  color: #1e3a8a;
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hotel-search-form .form-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Form Container */
+.hotel-search-form .form-container {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Groups */
+.hotel-search-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.hotel-search-form .form-group label {
+  display: block;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.hotel-search-form .form-group .required {
+  color: #ef4444;
+}
+
+.hotel-search-form .form-group input,
+.hotel-search-form .form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  min-height: 44px; /* Touch-friendly */
+}
+
+.hotel-search-form .form-group input:focus,
+.hotel-search-form .form-group select:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.hotel-search-form .form-group input.error,
+.hotel-search-form .form-group select.error {
+  border-color: #ef4444;
+}
+
+.hotel-search-form .form-group input:disabled,
+.hotel-search-form .form-group select:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Form Row (side-by-side fields) */
+.hotel-search-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Error Messages */
+.hotel-search-form .error-text {
+  display: block;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.hotel-search-form .error-message {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hotel-search-form .error-message .error-icon {
+  font-size: 1.25rem;
+}
+
+.hotel-search-form .submit-error {
+  color: #991b1b;
+}
+
+/* Rooms Section */
+.hotel-search-form .rooms-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.hotel-search-form .rooms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.hotel-search-form .rooms-header h3 {
+  color: #1e3a8a;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.hotel-search-form .btn-add-room {
+  background-color: #0ea5e9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 44px;
+}
+
+.hotel-search-form .btn-add-room:hover:not(:disabled) {
+  background-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+.hotel-search-form .btn-add-room:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Room Configuration */
+.hotel-search-form .room-config {
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.hotel-search-form .room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.hotel-search-form .room-header h4 {
+  color: #334155;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.hotel-search-form .btn-remove-room {
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 36px;
+}
+
+.hotel-search-form .btn-remove-room:hover:not(:disabled) {
+  background-color: #ef4444;
+  color: white;
+}
+
+.hotel-search-form .btn-remove-room:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Children Ages */
+.hotel-search-form .children-ages {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.hotel-search-form .children-ages > label {
+  display: block;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.hotel-search-form .ages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.hotel-search-form .age-input label {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.hotel-search-form .age-input select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+/* Form Actions */
+.hotel-search-form .form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.hotel-search-form .btn {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  min-height: 44px;
+}
+
+.hotel-search-form .btn.primary {
+  background-color: #0ea5e9;
+  color: white;
+}
+
+.hotel-search-form .btn.primary:hover:not(:disabled) {
+  background-color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.hotel-search-form .btn.secondary {
+  background-color: white;
+  color: #64748b;
+  border: 2px solid #e2e8f0;
+}
+
+.hotel-search-form .btn.secondary:hover:not(:disabled) {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.hotel-search-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.hotel-search-form .loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Responsive (320px+) */
+@media (max-width: 768px) {
+  .hotel-search-form {
+    padding: 1rem;
+  }
+
+  .hotel-search-form .form-container {
+    padding: 1.5rem;
+  }
+
+  .hotel-search-form .form-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .hotel-search-form .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-search-form .form-actions {
+    flex-direction: column;
+  }
+
+  .hotel-search-form .rooms-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .hotel-search-form .btn-add-room {
+    width: 100%;
+  }
+
+  .hotel-search-form .ages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hotel-search-form .ages-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .hotel-search-form .form-container {
+    padding: 2.5rem;
+  }
+
+  .hotel-search-form .ages-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

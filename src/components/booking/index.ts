@@ -1,2 +1,8 @@
-export { default as BookingModal } from './BookingModal';
-export type { BookingData } from './BookingModal';
+/**
+ * Booking Components
+ * 
+ * Export all booking-related components for easy importing
+ */
+
+export { CombinedBookingWorkflow } from './CombinedBookingWorkflow';
+export { CombinedItineraryView } from './CombinedItineraryView';

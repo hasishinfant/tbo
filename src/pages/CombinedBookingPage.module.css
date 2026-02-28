@@ -1,0 +1,14 @@
+/* Combined Booking Page Styles */
+
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+  padding: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page {
+    padding: 0;
+  }
+}

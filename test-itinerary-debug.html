@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Itinerary Debug Test</title>
+</head>
+<body>
+    <h1>Itinerary Debug Test</h1>
+    <div id="output"></div>
+    
+    <script>
+        // Check sessionStorage
+        const generatedItinerary = sessionStorage.getItem('generatedItinerary');
+        const currentTrip = localStorage.getItem('currentTrip');
+        
+        const output = document.getElementById('output');
+        output.innerHTML = `
+            <h2>SessionStorage:</h2>
+            <pre>${generatedItinerary || 'Not found'}</pre>
+            
+            <h2>LocalStorage:</h2>
+            <pre>${currentTrip || 'Not found'}</pre>
+        `;
+        
+        if (generatedItinerary) {
+            try {
+                const parsed = JSON.parse(generatedItinerary);
+                console.log('Parsed itinerary:', parsed);
+                output.innerHTML += `<h2>Parsed Successfully:</h2><pre>${JSON.stringify(parsed, null, 2)}</pre>`;
+            } catch (e) {
+                output.innerHTML += `<h2>Parse Error:</h2><pre>${e.message}</pre>`;
+            }
+        }
+    </script>
+</body>
+</html>

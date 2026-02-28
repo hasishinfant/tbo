@@ -130,15 +130,15 @@ const TripPlannerForm: React.FC = () => {
       };
 
       // Stage 1: Validation complete
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise(resolve => setTimeout(resolve, 200));
       nextStage();
 
       // Stage 2: Connecting to API
-      await new Promise(resolve => setTimeout(resolve, 600));
+      await new Promise(resolve => setTimeout(resolve, 150));
       nextStage();
 
       // Stage 3: Analyzing preferences
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 200));
       nextStage();
 
       // Stage 4: Generate itinerary with performance monitoring
@@ -149,7 +149,7 @@ const TripPlannerForm: React.FC = () => {
       nextStage();
 
       // Stage 5: Finalizing
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 150));
       
       if (response.success && response.data) {
         // Store both form data and generated itinerary for the next page

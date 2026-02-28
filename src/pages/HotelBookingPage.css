@@ -1,0 +1,68 @@
+.hotel-booking-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.hotel-booking-page .page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hotel-booking-page .page-header h1 {
+  font-size: 2rem;
+  color: #1a73e8;
+  margin-bottom: 0.5rem;
+}
+
+.hotel-booking-page .page-header p {
+  font-size: 1rem;
+  color: #5f6368;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .hotel-booking-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .hotel-booking-page .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .hotel-booking-page .page-header p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 320px) {
+  .hotel-booking-page {
+    padding: 0.75rem 0.25rem;
+  }
+
+  .hotel-booking-page .page-header h1 {
+    font-size: 1.25rem;
+  }
+}
+
+.hotel-booking-page .back-button {
+  background-color: #f5f7fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: #1a73e8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px; /* Touch-friendly */
+}
+
+.hotel-booking-page .back-button:hover {
+  background-color: #e8f0fe;
+  border-color: #1a73e8;
+}
+
+.hotel-booking-page .back-button:active {
+  transform: scale(0.98);
+}
