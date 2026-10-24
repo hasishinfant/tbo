@@ -1,320 +1,341 @@
-.mmt-navbar {
-  background-color: #ffffff;
-  height: 72px; /* Increased height */
+/* Floating Pill Navbar - Malvora Design */
+
+.navbar-wrapper {
   position: sticky;
-  top: 0;
+  top: 14px;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
-  display: flex;
-  align-items: center;
-}
-
-.navbar-container {
   width: 100%;
-  max-width: var(--container-width);
-  margin: 0 auto;
   display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+  margin-bottom: -78px; /* Overlay over hero */
+}
+
+.navbar-pill {
+  pointer-events: auto;
+  max-width: 1200px;
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 var(--spacing-md);
+  padding: 0 12px 0 22px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
 }
 
-.mmt-logo {
+/* Brand */
+.navbar-brand {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  font-size: 26px; /* Slightly larger */
-  font-weight: 900; /* Bolder */
-  color: #000;
-  letter-spacing: -0.5px;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.logo-accent {
-  color: var(--color-secondary);
-  font-style: italic;
-}
-
-.navbar-right {
-  display: flex;
-  gap: 2.5rem; /* Increased gap */
-  align-items: center;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Better icon-text gap */
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-
-/* Specific styling for 'My Trips' to make it pop less than login but more than offers */
-.nav-item:hover {
-  background-color: #f5f7fa;
-}
-
-.nav-icon-wrapper {
-  color: var(--color-text-secondary);
+.brand-logo-pill {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 18px;
 }
 
-.offer-icon {
-  background: var(--color-secondary);
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 15px;
-  line-height: 24px;
-  font-weight: bold;
-  display: inline-block;
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
-.nav-text {
+.brand-accent {
+  color: #4ade80;
+}
+
+/* Center Links Capsule */
+.nav-links-capsule {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.nav-title {
-  font-size: 11px;
-  font-weight: 800; /* Bolder title */
-  color: var(--color-text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
-
-.nav-subtitle {
-  font-size: 10px;
-  color: var(--color-text-secondary);
+.nav-pill-item {
+  padding: 7px 16px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-/* Refined Login Button */
-.login-btn {
-  background: linear-gradient(90deg, #0a89c0, #0caee9);
-  padding: 6px 16px 6px 6px; /* Pad right more for text, left less for icon */
-  border-radius: 6px;
-  color: white;
-  box-shadow: 0 2px 4px rgba(10, 137, 192, 0.2);
+.nav-pill-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-pill-item.active {
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Actions Right */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-profile-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
   gap: 8px;
+  padding: 5px 12px 5px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.login-btn:hover {
-  background: linear-gradient(90deg, #097ab0, #0b9ed6);
-  box-shadow: 0 4px 8px rgba(10, 137, 192, 0.3);
+.user-profile-pill:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
-.login-btn .nav-title, 
-.login-btn .nav-subtitle {
-  color: white;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-}
-
-.login-btn .nav-subtitle {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.login-icon-bg {
-  background: white;
-  width: 28px; /* Larger icon bg */
+.avatar-circle {
+  width: 28px;
   height: 28px;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.mmt-icon {
-  color: var(--color-primary);
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-/* User Dropdown */
-.user-dropdown {
-  position: absolute;
-  top: 120%; /* Push down slightly */
-  right: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  min-width: 220px;
-  z-index: 1000;
+.user-display-name {
+  max-width: 90px;
   overflow: hidden;
-  border: 1px solid #f0f0f0;
-  animation: slideDown 0.2s ease-out;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
+.dropdown-chevron {
+  transition: transform 0.2s ease;
+}
+
+.dropdown-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.navbar-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  min-width: 220px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  z-index: 1001;
+  animation: dropMenu 0.2s ease-out;
+}
+
+@keyframes dropMenu {
+  from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.dropdown-item {
+.dropdown-user-info {
+  padding: 10px 14px;
+}
+
+.dropdown-user-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0f172a;
+  margin: 0;
+}
+
+.dropdown-user-email {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+  word-break: break-all;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 6px 0;
+}
+
+.dropdown-menu-link {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  border-bottom: 1px solid #f9f9f9;
-}
-
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.dropdown-item:hover {
-  background: #f5f9ff;
-}
-
-.dropdown-item svg {
-  color: #555;
-  transition: color 0.2s;
-}
-
-.dropdown-item:hover svg {
-  color: var(--color-primary);
-}
-
-.dropdown-item span {
-  font-size: 0.95rem;
-  color: #333;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.875rem;
   font-weight: 500;
+  color: #334155;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
 
-/* Mobile Responsive Styles */
-@media (max-width: 1024px) {
-  .navbar-right {
-    gap: 1.5rem;
+.dropdown-menu-link:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.dropdown-menu-link.logout-link {
+  color: #dc2626;
+}
+
+.dropdown-menu-link.logout-link:hover {
+  background: #fef2f2;
+}
+
+/* Green CTA Pill */
+.btn-plan-trip-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary);
+  color: #022c14;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+  white-space: nowrap;
+}
+
+.btn-plan-trip-pill:hover {
+  background: #4ade80;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Mobile Drawer */
+.mobile-nav-drawer {
+  pointer-events: auto;
+  position: absolute;
+  top: 76px;
+  left: 16px;
+  right: 16px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: dropMenu 0.25s ease-out;
+}
+
+.mobile-nav-link {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link.active,
+.mobile-nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.mobile-drawer-footer {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 980px) {
+  .nav-links-capsule {
+    display: none;
   }
 
-  .nav-item {
-    padding: 6px 10px;
-  }
-
-  .nav-title {
-    font-size: 10px;
-  }
-
-  .nav-subtitle {
-    font-size: 9px;
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-@media (max-width: 768px) {
-  .mmt-navbar {
-    height: 64px;
-  }
-
-  .navbar-container {
-    padding: 0 var(--spacing-sm);
-  }
-
-  .navbar-right {
-    gap: 1rem;
-  }
-
-  .nav-item {
-    padding: 4px 8px;
-    min-width: 44px; /* Touch-friendly minimum */
-    min-height: 44px;
-  }
-
-  .nav-icon-wrapper {
-    font-size: 18px;
-  }
-
-  .offer-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 13px;
-    line-height: 20px;
-  }
-
-  .nav-text {
-    display: none; /* Hide text on mobile, show only icons */
-  }
-
-  .login-btn .nav-text {
-    display: flex; /* Keep login text visible */
-  }
-
-  .login-btn {
-    padding: 4px 12px 4px 4px;
-  }
-
-  .login-icon-bg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .mmt-logo {
-    font-size: 22px;
-  }
-
-  .user-dropdown {
-    min-width: 180px;
-  }
-
-  .dropdown-item {
-    padding: 12px 16px;
-  }
-}
-
-@media (max-width: 320px) {
-  .mmt-navbar {
+@media (max-width: 480px) {
+  .navbar-pill {
     height: 56px;
+    padding: 0 10px 0 16px;
   }
 
-  .navbar-right {
-    gap: 0.5rem;
+  .brand-name {
+    font-size: 1.1rem;
   }
 
-  .nav-item {
-    padding: 2px 6px;
+  .btn-plan-trip-pill span {
+    display: none; /* Icon only on very small screens */
   }
 
-  .nav-icon-wrapper {
-    font-size: 16px;
+  .btn-plan-trip-pill {
+    padding: 8px 12px;
   }
 
-  .offer-icon {
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    line-height: 18px;
+  .user-display-name {
+    display: none;
   }
 
-  .login-btn {
-    padding: 3px 10px 3px 3px;
-  }
-
-  .login-icon-bg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .login-btn .nav-title {
-    font-size: 9px;
-  }
-
-  .login-btn .nav-subtitle {
-    font-size: 8px;
-  }
-
-  .mmt-logo {
-    font-size: 18px;
-  }
-
-  .user-dropdown {
-    min-width: 160px;
+  .user-profile-pill {
+    padding: 4px;
   }
 }

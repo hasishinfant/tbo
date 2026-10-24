@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/shared';
+import { MessageSquare, Heart, Bookmark } from 'lucide-react';
 
 interface ActionButtonsProps {
   onChatWithAssistant: () => void;
@@ -13,27 +13,24 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   isSaving = false 
 }) => {
   return (
-    <div className="action-buttons space-x-4">
-      <Button 
-        variant="primary"
-        icon="chat"
+    <div style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+      <button 
+        type="button"
         onClick={onChatWithAssistant}
-        className="chat-button"
-        size="lg"
+        className="btn-pill-green"
       >
-        Chat with Travel Assistant
-      </Button>
-      <Button 
-        variant="secondary"
-        icon="heart"
+        <MessageSquare size={16} />
+        <span>Chat with Travel Assistant</span>
+      </button>
+      <button 
+        type="button"
         onClick={onSaveTrip}
         disabled={isSaving}
-        loading={isSaving}
-        className="save-button"
-        size="lg"
+        className="btn-pill-outline"
       >
-        {isSaving ? 'Saving Trip...' : 'Save Trip'}
-      </Button>
+        <Bookmark size={16} />
+        <span>{isSaving ? 'Saving Trip...' : 'Save Itinerary'}</span>
+      </button>
     </div>
   );
 };

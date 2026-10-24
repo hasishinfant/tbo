@@ -65,7 +65,7 @@ const COMBINED_SESSION_STORAGE_KEY = 'combined_booking_session';
 
 class CombinedBookingService {
   private currentSession: CombinedBookingSession | null = null;
-  private timeoutId: NodeJS.Timeout | null = null;
+  private timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   /**
    * Start a combined booking session with flight and hotel

@@ -1,19 +1,23 @@
-/* BudgetSelector Component Styles */
+/* ==========================================================================
+   TravelSphere — Budget Selector Styles
+   ========================================================================== */
 
 .budget-selector {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.form-label {
+.budget-selector .form-label {
   display: block;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 0.9375rem;
   margin-bottom: 0.75rem;
-  color: var(--gray-700);
+  color: #0f172a;
 }
 
 .budget-options {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
   grid-template-columns: 1fr;
 }
 
@@ -21,23 +25,23 @@
   position: relative;
   display: block;
   cursor: pointer;
-  border: 2px solid var(--gray-300);
-  border-radius: var(--border-radius);
-  background: white;
-  transition: all var(--transition-fast);
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  transition: all 0.2s ease;
   overflow: hidden;
 }
 
 .budget-option:hover {
-  border-color: var(--primary-color);
+  border-color: #86efac;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 }
 
 .budget-option.selected {
-  border-color: var(--primary-color);
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(8, 145, 178, 0.05));
-  box-shadow: var(--shadow-md);
+  border-color: #22c55e;
+  background: #f0fdf4;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.15);
 }
 
 .budget-radio {
@@ -47,11 +51,10 @@
 }
 
 .budget-content {
-  padding: 1rem;
-  min-height: 44px;
+  padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .budget-header {
@@ -61,35 +64,36 @@
 }
 
 .budget-icon {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   flex-shrink: 0;
 }
 
 .budget-label {
-  font-weight: 600;
-  font-size: 1.125rem;
-  color: var(--gray-800);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0f172a;
 }
 
 .budget-option.selected .budget-label {
-  color: var(--primary-color);
+  color: #15803d;
 }
 
 .budget-description {
   font-size: 0.875rem;
-  color: var(--gray-600);
-  line-height: 1.4;
-  margin-left: 2.25rem; /* Align with label */
+  color: #64748b;
+  line-height: 1.45;
+  margin-left: 2.25rem;
 }
 
 .budget-option.selected .budget-description {
-  color: var(--gray-700);
+  color: #334155;
 }
 
 .error-message {
   margin-top: 0.5rem;
-  color: var(--error-color);
-  font-size: 0.875rem;
+  color: #ef4444;
+  font-size: 0.8125rem;
+  font-weight: 600;
 }
 
 /* Tablet and Desktop Layout */
@@ -98,49 +102,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .budget-content {
-    text-align: center;
-    align-items: center;
-  }
-
-  .budget-header {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
   .budget-description {
     margin-left: 0;
-    text-align: center;
-  }
-}
-
-/* Focus styles for accessibility */
-.budget-option:focus-within {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Animation for selection */
-.budget-option.selected::before {
-  content: '✓';
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  width: 20px;
-  height: 20px;
-  background: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-@media (min-width: 768px) {
-  .budget-option.selected::before {
-    top: 0.75rem;
-    right: 0.75rem;
+    margin-top: 0.25rem;
   }
 }

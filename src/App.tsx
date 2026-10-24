@@ -20,7 +20,6 @@ import ErrorBoundary from './components/shared/ErrorBoundary';
 import NetworkStatus from './components/shared/NetworkStatus';
 import LoadingSpinner from './components/shared/LoadingSpinner';
 import { GlobalLoadingManager } from './components/shared/GlobalLoadingManager';
-import { AIAssistantWidget } from './confidence-engine/components/AIAssistantWidget';
 // import PerformanceMonitor from './components/shared/PerformanceMonitor';
 
 // Styles
@@ -50,8 +49,19 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     // Check if user is logged in
-    const user = localStorage.getItem('user');
-    setIsAuthenticated(!!user);
+    const checkAuth = () => {
+      const user = localStorage.getItem('user');
+      setIsAuthenticated(!!user);
+    };
+
+    checkAuth();
+    window.addEventListener('storage', checkAuth);
+    window.addEventListener('auth-change', checkAuth);
+
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+      window.removeEventListener('auth-change', checkAuth);
+    };
   }, []);
 
   return (
@@ -64,7 +74,6 @@ const App: React.FC = () => {
                 <NetworkStatus />
                 {/* <PerformanceMonitor /> */}
                 {isAuthenticated && <Navbar />}
-                {isAuthenticated && <AIAssistantWidget />}
                 <main className="main-content">
                   <Suspense fallback={
                     <div className="page-loading">
@@ -85,6 +94,8 @@ const App: React.FC = () => {
                       <Route path="/chat" element={isAuthenticated ? <ChatPage /> : <LoginPage />} />
                       <Route path="/chat/:tripId" element={isAuthenticated ? <ChatPage /> : <LoginPage />} />
                       <Route path="/emergency-support" element={isAuthenticated ? <EmergencyPage /> : <LoginPage />} />
+                      <Route path="/emergency-support/:tab" element={isAuthenticated ? <EmergencyPage /> : <LoginPage />} />
+                      <Route path="/emergency-support/requests/:requestId" element={isAuthenticated ? <EmergencyPage /> : <LoginPage />} />
                       {/* Catch-all route for 404 */}
                       <Route path="*" element={
                         <div className="not-found">

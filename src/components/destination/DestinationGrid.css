@@ -1,10 +1,10 @@
-/* Premium Destination Grid Layout */
+/* Destination Grid Layout - Malvora Theme */
 
 .destination-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 40px;
-  padding: 20px 0;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+  padding: 10px 0;
 }
 
 /* Loading State */
@@ -22,17 +22,16 @@
 
 .spinner {
   position: relative;
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 30px;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 24px;
 }
 
 .spinner-ring {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 4px solid #f0f0f0;
-  border-top-color: #3b82f6;
+  inset: 0;
+  border: 4px solid #f1f5f9;
+  border-top-color: #22c55e;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -46,7 +45,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2.5rem;
+  font-size: 2rem;
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -56,9 +55,9 @@
 }
 
 .loading-message {
-  font-size: 1.2rem;
-  color: #666;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #64748b;
 }
 
 /* Error State */
@@ -73,42 +72,27 @@
 .error-container {
   text-align: center;
   max-width: 500px;
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .error-icon {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
 .error-container h3 {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
   color: #1a1a1a;
   margin-bottom: 12px;
-  font-weight: 700;
 }
 
 .error-container p {
   font-size: 1.1rem;
   color: #666;
-  margin-bottom: 30px;
-  line-height: 1.6;
-}
-
-.error-container .btn {
-  padding: 14px 32px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.error-container .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  margin-bottom: 24px;
 }
 
 /* Empty State */
@@ -126,16 +110,14 @@
 }
 
 .empty-icon {
-  font-size: 5rem;
-  margin-bottom: 24px;
-  opacity: 0.5;
+  font-size: 4rem;
+  margin-bottom: 20px;
 }
 
 .empty-state h3 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: #1a1a1a;
   margin-bottom: 12px;
-  font-weight: 700;
 }
 
 .empty-state p {
@@ -145,37 +127,9 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .destination-grid {
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 32px;
-  }
-}
-
 @media (max-width: 768px) {
   .destination-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 10px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .destination-grid {
     gap: 24px;
-  }
-
-  .loading-message {
-    font-size: 1rem;
-  }
-
-  .error-container h3,
-  .empty-state h3 {
-    font-size: 1.5rem;
-  }
-
-  .error-container p,
-  .empty-state p {
-    font-size: 1rem;
   }
 }

@@ -108,7 +108,7 @@ const SESSION_STORAGE_KEY = 'booking_session';
 
 class BookingService {
   private currentSession: BookingSession | null = null;
-  private timeoutId: NodeJS.Timeout | null = null;
+  private timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   /**
    * Initialize a new booking session

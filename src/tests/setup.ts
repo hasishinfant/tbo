@@ -35,3 +35,39 @@ process.env.VITE_TEK_TRAVELS_API_KEY = 'test-api-key';
 process.env.VITE_TBO_HOTEL_API_URL = 'http://api.tbotechnology.in/TBOHolidays_HotelAPI';
 process.env.VITE_TBO_HOTEL_USERNAME = 'test-username';
 process.env.VITE_TBO_HOTEL_PASSWORD = 'test-password';
+
+// Mock localStorage for Node 22+ environments
+const createStorageMock = () => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => store[key] ?? null,
+    setItem: (key: string, value: string) => {
+      store[key] = value ? value.toString() : '';
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
+    get length() {
+      return Object.keys(store).length;
+    },
+    key: (index: number) => Object.keys(store)[index] ?? null,
+  };
+};
+
+const storageMock = createStorageMock();
+Object.defineProperty(globalThis, 'localStorage', {
+  value: storageMock,
+  writable: true,
+  configurable: true,
+});
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'localStorage', {
+    value: storageMock,
+    writable: true,
+    configurable: true,
+  });
+}
+

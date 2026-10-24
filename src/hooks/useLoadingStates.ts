@@ -14,7 +14,7 @@ interface LoadingStates {
 
 export function useLoadingStates() {
   const [loadingStates, setLoadingStates] = useState<LoadingStates>({});
-  const timeoutRefs = useRef<{ [key: string]: NodeJS.Timeout }>({});
+  const timeoutRefs = useRef<{ [key: string]: ReturnType<typeof setTimeout> }>({});
 
   const setLoading = useCallback((key: string, loading: boolean, stage?: string, progress?: number) => {
     setLoadingStates(prev => ({

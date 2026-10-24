@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Sparkles, RotateCcw, AlertCircle, Compass } from 'lucide-react';
 import DestinationDropdown from './DestinationDropdown';
 import BudgetSelector from './BudgetSelector';
 import DateRangePicker from './DateRangePicker';
@@ -8,7 +9,7 @@ import ComprehensiveLoader, { LOADING_STAGES as COMPREHENSIVE_LOADING_STAGES } f
 import { useStageLoading } from '../../hooks/useLoadingStates';
 import { useAsyncPerformance } from '../../hooks/usePerformance';
 import type { TripPlannerFormData, BudgetLevel, Interest } from '../../types/trip';
-import { VALIDATION_RULES } from '../../utils/constants';
+import { VALIDATION_RULES, SAMPLE_DESTINATIONS } from '../../utils/constants';
 import { itineraryService } from '../../services/itineraryService';
 import './TripPlannerForm.css';
 
@@ -52,13 +53,39 @@ const TripPlannerForm: React.FC = () => {
     setError: setLoadingError,
   } = useStageLoading(LOADING_STAGES);
   
-  const [formData, setFormData] = useState<FormState>({
-    destination: '',
-    budget: '',
-    startDate: null,
-    endDate: null,
-    interests: []
+  const [searchParams] = useSearchParams();
+
+  const [formData, setFormData] = useState<FormState>(() => {
+    const destParam = searchParams.get('destination') || '';
+    let initialDest = '';
+    if (destParam) {
+      const match = SAMPLE_DESTINATIONS.find(
+        d => d.id.toLowerCase() === destParam.toLowerCase() ||
+             d.name.toLowerCase().includes(destParam.toLowerCase())
+      );
+      if (match) initialDest = match.id;
+    }
+    return {
+      destination: initialDest,
+      budget: '',
+      startDate: null,
+      endDate: null,
+      interests: []
+    };
   });
+
+  useEffect(() => {
+    const destParam = searchParams.get('destination');
+    if (destParam) {
+      const match = SAMPLE_DESTINATIONS.find(
+        d => d.id.toLowerCase() === destParam.toLowerCase() ||
+             d.name.toLowerCase().includes(destParam.toLowerCase())
+      );
+      if (match) {
+        setFormData(prev => ({ ...prev, destination: match.id }));
+      }
+    }
+  }, [searchParams]);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -206,24 +233,40 @@ const TripPlannerForm: React.FC = () => {
         />
       )}
       
-      <div className="form-header">
-        <h1>Plan Your Perfect Trip</h1>
-        <p>Tell us about your travel preferences and we'll create a personalized itinerary just for you.</p>
-      </div>
-
       {errors.submit && (
-        <div className="error-message submit-error">
-          <span className="error-icon">⚠️</span>
-          {errors.submit}
+        <div className="planner-submit-error">
+          <AlertCircle size={18} />
+          <span>{errors.submit}</span>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="form-container">
-        <DestinationDropdown
-          value={formData.destination}
-          onChange={(value) => setFormData(prev => ({ ...prev, destination: value }))}
-          error={errors.destination}
-        />
+        <div>
+          <DestinationDropdown
+            value={formData.destination}
+            onChange={(value) => setFormData(prev => ({ ...prev, destination: value }))}
+            error={errors.destination}
+          />
+          {/* Quick-Pick Popular Destinations */}
+          <div className="quick-destinations-row">
+            <span className="quick-label">Trending:</span>
+            {['santorini', 'tokyo', 'bali', 'paris', 'new-york'].map(destId => {
+              const dest = SAMPLE_DESTINATIONS.find(d => d.id === destId);
+              if (!dest) return null;
+              const isSelected = formData.destination === dest.id;
+              return (
+                <button
+                  key={dest.id}
+                  type="button"
+                  className={`quick-dest-chip ${isSelected ? 'active' : ''}`}
+                  onClick={() => setFormData(prev => ({ ...prev, destination: dest.id }))}
+                >
+                  {dest.name.split(',')[0]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         <BudgetSelector
           value={formData.budget}
@@ -250,25 +293,26 @@ const TripPlannerForm: React.FC = () => {
           <button
             type="button"
             onClick={handleReset}
-            className="btn secondary"
+            className="btn-pill-reset"
             disabled={isLoading}
           >
-            Reset Form
+            <RotateCcw size={16} />
+            <span>Reset Form</span>
           </button>
           <button
             type="submit"
-            className="btn primary"
+            className="btn-pill-submit"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
                 <span className="loading-spinner-small"></span>
-                Generating Itinerary...
+                <span>Generating Itinerary...</span>
               </>
             ) : (
               <>
-                <span>✈️</span>
-                Create My Itinerary
+                <Sparkles size={16} />
+                <span>Create My Itinerary</span>
               </>
             )}
           </button>

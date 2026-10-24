@@ -1,97 +1,175 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { User, ChevronDown, CheckCircle2, LogOut, Hotel } from "lucide-react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { User, ChevronDown, CheckCircle2, LogOut, MessageSquare, Menu, X, Sparkles } from "lucide-react";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
+    const updateUser = () => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+      } else {
+        setUser(null);
+      }
+    };
+
+    updateUser();
+    window.addEventListener('storage', updateUser);
+    window.addEventListener('auth-change', updateUser);
+
+    return () => {
+      window.removeEventListener('storage', updateUser);
+      window.removeEventListener('auth-change', updateUser);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    window.dispatchEvent(new Event('auth-change'));
     setUser(null);
+    setShowDropdown(false);
     navigate('/login');
   };
 
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Plan Trip', path: '/plan-trip' },
+    { name: 'Book Hotels', path: '/book-hotels' },
+    { name: 'My Trips', path: '/itinerary' },
+    { name: 'Emergency', path: '/emergency-support' },
+  ];
+
+  const isCurrent = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
   return (
-    <header className="mmt-navbar">
-      <div className="navbar-container">
-        <div className="navbar-left">
-          <a href="/" className="mmt-logo">
-            <span className="logo-icon">✈️</span>
-            <span className="logo-text">travel<span className="logo-accent">sphere</span></span>
-          </a>
-        </div>
-
-        <nav className="navbar-right">
-          <div className="nav-item" onClick={() => navigate('/itinerary')}>
-            <span className="nav-icon-wrapper">
-              <span className="offer-icon">%</span>
-            </span>
-            <div className="nav-text">
-              <span className="nav-title">Super Offers</span>
-              <span className="nav-subtitle">Explore great deals</span>
-            </div>
+    <header className="navbar-wrapper">
+      <div className="navbar-pill">
+        <Link to="/" className="navbar-brand">
+          <div className="brand-logo-pill">
+            <span className="brand-icon">🌿</span>
           </div>
+          <span className="brand-name">
+            Travel<span className="brand-accent">Sphere</span>
+          </span>
+        </Link>
 
-          <div className="nav-item" onClick={() => navigate('/book-hotels')}>
-            <span className="nav-icon-wrapper">
-              <Hotel size={20} className="text-secondary" />
-            </span>
-            <div className="nav-text">
-              <span className="nav-title">Book Hotels</span>
-              <span className="nav-subtitle">Find accommodations</span>
-            </div>
-          </div>
+        {/* Desktop Navigation Links */}
+        <nav className="nav-links-capsule" aria-label="Main Navigation">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`nav-pill-item ${isCurrent(link.path) ? 'active' : ''}`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-          <div className="nav-item" onClick={() => navigate('/itinerary')}>
-            <span className="nav-icon-wrapper">
-              <CheckCircle2 size={20} className="text-secondary" />
-            </span>
-            <div className="nav-text">
-              <span className="nav-title">My Trips</span>
-              <span className="nav-subtitle">Manage your bookings</span>
-            </div>
-          </div>
-
+        {/* Right CTA & Profile */}
+        <div className="navbar-actions">
           <div 
-            className="nav-item login-btn"
+            className="user-profile-pill"
             onClick={() => setShowDropdown(!showDropdown)}
-            style={{ position: 'relative', cursor: 'pointer' }}
+            title="User Profile"
           >
-            <div className="login-icon-bg">
-              <User size={16} />
+            <div className="avatar-circle">
+              <User size={15} />
             </div>
-            <div className="nav-text">
-              <span className="nav-title">{user?.name || 'Guest'}</span>
-              <span className="nav-subtitle">
-                {user?.email || 'Not logged in'} <ChevronDown size={12} />
-              </span>
-            </div>
-            
+            <span className="user-display-name">{user?.name ? user.name.split(' ')[0] : 'Guest'}</span>
+            <ChevronDown size={14} className={`dropdown-chevron ${showDropdown ? 'open' : ''}`} />
+
             {showDropdown && (
-              <div className="user-dropdown">
-                <div className="dropdown-item" onClick={() => navigate('/itinerary')}>
+              <div className="navbar-dropdown-menu">
+                <div className="dropdown-user-info">
+                  <p className="dropdown-user-name">{user?.name || 'Guest Traveler'}</p>
+                  <p className="dropdown-user-email">{user?.email || 'demo@travelsphere.com'}</p>
+                </div>
+                <div className="dropdown-divider" />
+                <button 
+                  type="button" 
+                  className="dropdown-menu-link" 
+                  onClick={(e) => { e.stopPropagation(); setShowDropdown(false); navigate('/itinerary'); }}
+                >
                   <CheckCircle2 size={16} />
-                  <span>My Trips</span>
-                </div>
-                <div className="dropdown-item" onClick={handleLogout}>
+                  <span>My Bookings</span>
+                </button>
+                <button 
+                  type="button" 
+                  className="dropdown-menu-link" 
+                  onClick={(e) => { e.stopPropagation(); setShowDropdown(false); navigate('/chat'); }}
+                >
+                  <MessageSquare size={16} />
+                  <span>AI Travel Chat</span>
+                </button>
+                <div className="dropdown-divider" />
+                <button 
+                  type="button" 
+                  className="dropdown-menu-link logout-link" 
+                  onClick={(e) => { e.stopPropagation(); handleLogout(); }}
+                >
                   <LogOut size={16} />
-                  <span>Logout</span>
-                </div>
+                  <span>Sign Out</span>
+                </button>
               </div>
             )}
           </div>
-        </nav>
+
+          <button 
+            type="button"
+            className="btn-plan-trip-pill"
+            onClick={() => navigate('/plan-trip')}
+          >
+            <Sparkles size={15} />
+            <span>Plan Trip</span>
+          </button>
+
+          {/* Mobile Menu Hamburger */}
+          <button 
+            type="button"
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="mobile-nav-drawer">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`mobile-nav-link ${isCurrent(link.path) ? 'active' : ''}`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <div className="mobile-drawer-footer">
+            <button
+              type="button"
+              className="btn-pill-green full-width"
+              onClick={() => { setMobileMenuOpen(false); navigate('/plan-trip'); }}
+            >
+              Plan Your Trip Now
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

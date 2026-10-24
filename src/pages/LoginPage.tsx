@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, ArrowRight, Check } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, Check, Eye, EyeOff, Sparkles, Compass } from 'lucide-react';
 import './LoginPage.css';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -30,12 +31,13 @@ const LoginPage: React.FC = () => {
     // Mock authentication
     const userData = {
       email: formData.email,
-      name: isLogin ? formData.email.split('@')[0] : formData.name,
+      name: isLogin ? (formData.email.split('@')[0] || 'Traveler') : formData.name,
       loggedIn: true,
       loginTime: new Date().toISOString(),
     };
 
     localStorage.setItem('user', JSON.stringify(userData));
+    window.dispatchEvent(new Event('auth-change'));
     navigate('/');
   };
 
@@ -54,12 +56,13 @@ const LoginPage: React.FC = () => {
       loginTime: new Date().toISOString(),
     };
     localStorage.setItem('user', JSON.stringify(demoUser));
+    window.dispatchEvent(new Event('auth-change'));
     navigate('/');
   };
 
   return (
     <div className="login-page">
-      <div className="login-decoration">
+      <div className="login-decoration" aria-hidden="true">
         <div className="circle-1"></div>
         <div className="circle-2"></div>
       </div>
@@ -69,48 +72,59 @@ const LoginPage: React.FC = () => {
         <div className="login-visual">
           <div className="visual-content">
             <div className="brand-badge">
-              <span>✈️</span>
+              <span className="brand-badge-icon">✈️</span>
             </div>
             <h1>TravelSphere</h1>
-            <p className="tagline">Explore the world with confidence.</p>
+            <p className="tagline">Explore the world with AI-powered confidence.</p>
             
             <div className="features-list">
               <div className="feature-row">
-                <div className="feature-icon-box"><Check size={16} /></div>
-                <span>AI-Powered Itineraries</span>
+                <div className="feature-icon-box"><Check size={16} strokeWidth={2.5} /></div>
+                <span>AI-Powered Smart Itineraries</span>
               </div>
               <div className="feature-row">
-                <div className="feature-icon-box"><Check size={16} /></div>
-                <span>Exclusive Deals</span>
+                <div className="feature-icon-box"><Check size={16} strokeWidth={2.5} /></div>
+                <span>Curated Flight & Hotel Deals</span>
               </div>
               <div className="feature-row">
-                <div className="feature-icon-box"><Check size={16} /></div>
-                <span>24/7 Support</span>
+                <div className="feature-icon-box"><Check size={16} strokeWidth={2.5} /></div>
+                <span>24/7 Intelligent Travel Companion</span>
               </div>
             </div>
+
+            <div className="trust-badge">
+              <Compass size={16} className="trust-icon" />
+              <span>Personalized recommendations in real-time</span>
+            </div>
           </div>
-          <div className="visual-overlay"></div>
+          <div className="visual-overlay" aria-hidden="true"></div>
         </div>
 
         {/* Right Side - Form */}
         <div className="login-form-wrapper">
           <div className="form-header">
             <h2>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
-            <p>{isLogin ? 'Enter your details to access your account' : 'Start your journey with us today'}</p>
+            <p>{isLogin ? 'Enter your credentials to access your trips' : 'Start your journey with us today'}</p>
           </div>
 
-          {error && <div className="error-message">{error}</div>}
+          {error && (
+            <div className="error-message" role="alert">
+              <span>⚠️</span> {error}
+            </div>
+          )}
 
-          <form onSubmit={handleSubmit} className="auth-form">
+          <form onSubmit={handleSubmit} className="auth-form" noValidate>
             {!isLogin && (
               <div className="input-group">
-                <label>Full Name</label>
+                <label htmlFor="login-name">Full Name</label>
                 <div className="input-field">
-                  <User size={18} className="field-icon" />
+                  <User size={18} className="field-icon" aria-hidden="true" />
                   <input
+                    id="login-name"
                     type="text"
                     name="name"
                     placeholder="John Doe"
+                    autoComplete="name"
                     value={formData.name}
                     onChange={handleChange}
                   />
@@ -119,13 +133,16 @@ const LoginPage: React.FC = () => {
             )}
 
             <div className="input-group">
-              <label>Email Address</label>
+              <label htmlFor="login-email">Email Address</label>
               <div className="input-field">
-                <Mail size={18} className="field-icon" />
+                <Mail size={18} className="field-icon" aria-hidden="true" />
                 <input
+                  id="login-email"
                   type="email"
                   name="email"
                   placeholder="name@example.com"
+                  autoComplete="email"
+                  inputMode="email"
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -133,31 +150,51 @@ const LoginPage: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <label>Password</label>
+              <label htmlFor="login-password">Password</label>
               <div className="input-field">
-                <Lock size={18} className="field-icon" />
+                <Lock size={18} className="field-icon" aria-hidden="true" />
                 <input
-                  type="password"
+                  id="login-password"
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   placeholder="••••••••"
+                  autoComplete={isLogin ? 'current-password' : 'new-password'}
                   value={formData.password}
                   onChange={handleChange}
                 />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 
             <div className="form-actions">
               {isLogin && (
-                <div className="remember-me">
+                <label className="remember-me" htmlFor="remember">
                   <input type="checkbox" id="remember" />
-                  <label htmlFor="remember">Remember me</label>
-                </div>
+                  <span>Remember me</span>
+                </label>
               )}
-              {isLogin && <a href="#" className="forgot-link">Forgot Password?</a>}
+              {isLogin && (
+                <button
+                  type="button"
+                  className="forgot-link"
+                  onClick={() => alert('Password reset link sent to demo account.')}
+                >
+                  Forgot Password?
+                </button>
+              )}
             </div>
 
             <button type="submit" className="submit-btn">
-              {isLogin ? 'Sign In' : 'Sign Up'} <ArrowRight size={18} />
+              <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
+              <ArrowRight size={18} />
             </button>
 
             <div className="divider">
@@ -165,17 +202,25 @@ const LoginPage: React.FC = () => {
             </div>
 
             <button type="button" className="demo-btn" onClick={handleDemoLogin}>
-              Continue as Guest (Demo)
+              <Sparkles size={18} className="demo-icon" />
+              <span>Continue as Guest (Demo Account)</span>
             </button>
           </form>
 
           <div className="auth-switch">
-             <p>
+            <p>
               {isLogin ? "Don't have an account?" : "Already have an account?"}
-              <button onClick={() => setIsLogin(!isLogin)}>
+              <button
+                type="button"
+                className="switch-btn"
+                onClick={() => {
+                  setIsLogin(!isLogin);
+                  setError('');
+                }}
+              >
                 {isLogin ? 'Create Account' : 'Sign In'}
               </button>
-             </p>
+            </p>
           </div>
         </div>
       </div>
